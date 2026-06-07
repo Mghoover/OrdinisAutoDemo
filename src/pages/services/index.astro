@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/navigation/Header.astro";
+import Footer from "../../components/footer/Footer.astro";
+import { services, breadcrumbSchema } from "../../data/automotive";
+
+const schemaItems = [
+  breadcrumbSchema([
+    { label: "Home", path: "/" },
+    { label: "Services", path: "/services/" },
+  ]),
+];
+---
+
+<BaseLayout pageTitle="Automotive Repair Services" pageDescription="Automotive diagnostics, brake repair, oil changes, AC repair, electrical diagnostics, engine repair, Toyota service, and preventive maintenance." schemaItems={schemaItems}>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Services</p>
+          <h1>Automotive Repair Built Around Clear Answers</h1>
+          <p class="hero-description">Service pages are structured for conversion and long-term SEO expansion, from broad repair categories to make-specific content.</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Schedule Service</a>
+            <a class="cta-button is-secondary" href="/symptoms/">Search by Symptom</a>
+          </div>
+        </div>
+        <div class="content-card detail-media-card">
+          <img src="/images/auto/diagnostics.png" alt="Automotive diagnostics in a clean repair shop" />
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell">
+        <div class="card-grid">
+          {services.map((service) => (
+            <a class="content-card link-card" href={`/services/${service.slug}/`}>
+              <p class="card-kicker">{service.eyebrow}</p>
+              <h2>{service.title}</h2>
+              <p>{service.summary}</p>
+              <span>Learn more</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

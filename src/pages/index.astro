@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { business } from "../config/business";
+import { allFaqs, services, symptoms, trustIndicators, faqSchema } from "../data/automotive";
+
+const schemaItems = [faqSchema(allFaqs.slice(0, 6))];
+---
+
+<BaseLayout pageTitle="Honest Automotive Repair in Florence SC" pageDescription={business.description} schemaItems={schemaItems}>
+  <Header />
+  <main>
+    <section class="hero-section auto-hero">
+      <div class="shell hero-shell">
+        <div class="hero-copy">
+          <p class="section-eyebrow">Independent Auto Repair in Florence SC</p>
+          <h1>Honest Automotive Repair. Dealer-Level Expertise. Local Service You Can Trust.</h1>
+          <p class="hero-description">Diagnostics, maintenance, and repair for families, commuters, and small business fleets from a shop built around clear answers before parts.</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Schedule Service</a>
+            <a class="cta-button is-secondary" href={`tel:${business.phone}`}>Call {business.phone}</a>
+          </div>
+          <ul class="tag-list hero-tag-list">
+            <li>Former Toyota Technician</li>
+            <li>Transparent Recommendations</li>
+            <li>Florence Service Area</li>
+          </ul>
+        </div>
+        <div class="hero-visual-card content-card">
+          <img class="hero-visual-image" src="/images/auto/hero-shop.png" alt="Clean independent automotive repair shop with technician inspecting a vehicle" />
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell">
+        <div class="section-header">
+          <p class="section-eyebrow">What We Do</p>
+          <h2>Automotive Service With a Diagnostic Mindset</h2>
+          <p class="section-description">The site is structured to convert urgent repair visitors while supporting deeper service, symptom, maintenance, and location SEO content.</p>
+        </div>
+        <div class="card-grid">
+          {services.slice(0, 6).map((service) => (
+            <a class="content-card link-card" href={`/services/${service.slug}/`}>
+              <p class="card-kicker">{service.eyebrow}</p>
+              <h3>{service.title}</h3>
+              <p>{service.summary}</p>
+              <span>View service</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section alt-surface">
+      <div class="shell split-layout">
+        <div>
+          <p class="section-eyebrow">Why Choose Us</p>
+          <h2>Clear Priorities Before Repairs Begin</h2>
+          <p>Customers want to know whether a repair is urgent, optional, maintenance-related, or something to monitor. This template makes that communication central across the site.</p>
+          <ul class="check-list">
+            <li>Test-first diagnostics instead of parts guessing</li>
+            <li>Repair recommendations explained in plain language</li>
+            <li>Maintenance planning for real driving habits</li>
+            <li>Local shop tone with dealership-level discipline</li>
+          </ul>
+        </div>
+        <div class="info-grid" style="--info-columns: 2">
+          {trustIndicators.map((item) => (
+            <article class="info-card">
+              <p class="card-kicker">{item.label}</p>
+              <h3>{item.value}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell">
+        <div class="section-header">
+          <p class="section-eyebrow">Common Problems Solved</p>
+          <h2>Built for the Searches Drivers Actually Make</h2>
+        </div>
+        <div class="card-grid">
+          {symptoms.slice(0, 6).map((symptom) => (
+            <a class="content-card link-card" href={`/symptoms/${symptom.slug}/`}>
+              <h3>{symptom.title}</h3>
+              <p>{symptom.summary}</p>
+              <span>Read symptom guide</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section alt-surface">
+      <div class="shell split-callout">
+        <div class="content-card">
+          <p class="section-eyebrow">FAQ Preview</p>
+          <h2>Questions Before You Book?</h2>
+          {allFaqs.slice(0, 4).map((faq) => (
+            <article class="mini-faq">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </article>
+          ))}
+          <a class="cta-button is-secondary" href="/faq/">View Full FAQ</a>
+        </div>
+        <div class="cta-panel">
+          <p class="section-eyebrow">Request Service</p>
+          <h2>Tell Us What Your Vehicle Is Doing</h2>
+          <p>Use the schedule page for appointment requests, vehicle details, and concern descriptions. No backend is implemented in the demo.</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Schedule Service</a>
+            <a class="cta-button is-secondary" href="/contact/">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell split-layout">
+        <div>
+          <p class="section-eyebrow">Visit the Shop</p>
+          <h2>{business.name}</h2>
+          <p>{business.address}<br />{business.city}, {business.state} {business.postalCode}</p>
+          <p><strong>Phone:</strong> <a href={`tel:${business.phone}`}>{business.phone}</a></p>
+          <p><strong>Service Area:</strong> {business.serviceAreas.join(", ")}</p>
+        </div>
+        <iframe class="map-frame" src={business.mapEmbedUrl} title={`${business.name} map`} loading="lazy"></iframe>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

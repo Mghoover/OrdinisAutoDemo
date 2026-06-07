@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { business } from "../config/business";
+---
+
+<BaseLayout pageTitle="Contact Heritage Auto Repair" pageDescription="Contact Heritage Auto Repair for automotive diagnostics, maintenance, and repair in Florence, SC.">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Contact</p>
+          <h1>Call, Message, or Request an Appointment</h1>
+          <p class="hero-description">For urgent safety concerns, phone calls should be the primary conversion path. Appointment requests collect the vehicle details a shop needs before follow-up.</p>
+          <div class="hero-actions">
+            <a class="cta-button" href={`tel:${business.phone}`}>Call {business.phone}</a>
+            <a class="cta-button is-secondary" href="/schedule-service/">Schedule Service</a>
+          </div>
+        </div>
+        <div class="content-card">
+          <h2>Shop Details</h2>
+          <p>{business.address}<br />{business.city}, {business.state} {business.postalCode}</p>
+          <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+          <div class="stack-list">
+            {business.hours.map((hour) => <p><strong>{hour.label}:</strong> {hour.value}</p>)}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell split-layout">
+        <form class="content-card form-card" aria-label="Contact form placeholder">
+          <h2>Contact Form</h2>
+          <label>Name<input name="name" type="text" /></label>
+          <label>Phone<input name="phone" type="tel" /></label>
+          <label>Email<input name="email" type="email" /></label>
+          <label>Message<textarea name="message" rows="5"></textarea></label>
+          <button class="cta-button" type="button">Send Message</button>
+          <p class="form-note">Demo placeholder only. Connect to an ODS form endpoint or CRM when implemented.</p>
+        </form>
+        <div>
+          <iframe class="map-frame" src={business.mapEmbedUrl} title={`${business.name} map`} loading="lazy"></iframe>
+          <article class="content-card service-area-card">
+            <h2>Service Area</h2>
+            <p>{business.serviceAreas.join(", ")}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { business } from "../config/business";
+---
+
+<BaseLayout pageTitle="About Heritage Auto Repair" pageDescription="Owner story, values, experience, and trust-building positioning for the ODS automotive repair template.">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">About</p>
+          <h1>Dealer-Level Habits, Independent-Shop Accountability</h1>
+          <p class="hero-description">This demo positions the shop around a former Toyota technician who opened an independent repair business to give local drivers clearer explanations and more practical repair decisions.</p>
+        </div>
+        <div class="content-card">
+          <p class="card-kicker">Owner Story</p>
+          <h2>{business.owner}</h2>
+          <p>After years in dealership service, Daniel saw how much trust depends on communication. Heritage Auto Repair was built to slow down the conversation, verify the problem, and explain priorities before repairs begin.</p>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell split-layout">
+        <article class="content-card">
+          <h2>Mission</h2>
+          <p>Help local drivers keep safe, dependable vehicles through honest diagnostics, transparent recommendations, and maintenance plans that fit real life.</p>
+        </article>
+        <article class="content-card">
+          <h2>Experience</h2>
+          <p>The demo-safe profile emphasizes Toyota dealership experience, modern diagnostic practices, and independent ownership without making unverifiable certifications.</p>
+        </article>
+      </div>
+      <div class="shell">
+        <div class="card-grid">
+          {["Honesty before sales", "Testing before parts", "Education before pressure", "Safety before convenience", "Local accountability", "Long-term relationships"].map((value) => (
+            <article class="info-card"><h3>{value}</h3></article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

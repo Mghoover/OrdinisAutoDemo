@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { allFaqs, faqSchema, breadcrumbSchema } from "../data/automotive";
+
+const uniqueFaqs = Array.from(new Map(allFaqs.map((faq) => [faq.question, faq])).values());
+---
+
+<BaseLayout pageTitle="Automotive Repair FAQ" pageDescription="Comprehensive automotive repair FAQ covering diagnostics, brakes, oil changes, overheating, maintenance, electrical concerns, appointments, and estimates." schemaItems={[faqSchema(uniqueFaqs), breadcrumbSchema([{ label: "Home", path: "/" }, { label: "FAQ", path: "/faq/" }])]}>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell">
+        <p class="section-eyebrow">FAQ</p>
+        <h1>Automotive Repair Questions, Answered Clearly</h1>
+        <p class="hero-description">A comprehensive FAQ with structured data support for local search visibility.</p>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell faq-list">
+        {uniqueFaqs.map((faq) => (
+          <article class="content-card faq-card">
+            <h2>{faq.question}</h2>
+            <p>{faq.answer}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

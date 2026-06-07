@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { business } from "../config/business";
+---
+
+<BaseLayout pageTitle="Schedule Automotive Service" pageDescription="Request an automotive service appointment with vehicle year, make, model, and concern description.">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Schedule Service</p>
+          <h1>Request an Appointment</h1>
+          <p class="hero-description">This conversion page is ready for future appointment workflows, customer portals, vehicle history, repair status tracking, and service reminders.</p>
+        </div>
+        <div class="content-card">
+          <h2>Prefer to Call?</h2>
+          <p>For urgent brake, overheating, no-start, or warning light concerns, call the shop directly.</p>
+          <a class="cta-button" href={`tel:${business.phone}`}>{business.phone}</a>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell">
+        <form class="content-card form-card schedule-form" aria-label="Schedule service form placeholder">
+          <div class="form-grid">
+            <label>Name<input name="name" type="text" /></label>
+            <label>Phone<input name="phone" type="tel" /></label>
+            <label>Email<input name="email" type="email" /></label>
+            <label>Vehicle Year<input name="vehicle-year" type="text" inputmode="numeric" /></label>
+            <label>Vehicle Make<input name="vehicle-make" type="text" /></label>
+            <label>Vehicle Model<input name="vehicle-model" type="text" /></label>
+          </div>
+          <label>Concern Description<textarea name="concern" rows="7" placeholder="Describe warning lights, noises, leaks, when the issue happens, and any recent repairs."></textarea></label>
+          <button class="cta-button" type="button">Request Appointment</button>
+          <p class="form-note">Demo placeholder only. No backend submission is implemented.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import DetailLayout from "../../layouts/DetailLayout.astro";
+import { maintenance, bySlug } from "../../data/automotive";
+
+export function getStaticPaths() {
+  return maintenance.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const item = bySlug(maintenance, Astro.params.slug) ?? Astro.props.item;
+---
+
+<DetailLayout item={item} parentLabel="Maintenance" parentPath="/maintenance/" includeServiceSchema={false} />

@@ -1,0 +1,105 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { breadcrumbSchema, faqSchema, serviceSchema, type DetailPage } from "../data/automotive";
+import { business } from "../config/business";
+
+const {
+  item,
+  parentLabel,
+  parentPath,
+  pageDescription = item.summary,
+  includeServiceSchema = true,
+} = Astro.props as {
+  item: DetailPage;
+  parentLabel: string;
+  parentPath: string;
+  pageDescription?: string;
+  includeServiceSchema?: boolean;
+};
+
+const schemaItems = [
+  breadcrumbSchema([
+    { label: "Home", path: "/" },
+    { label: parentLabel, path: parentPath },
+    { label: item.title, path: `${parentPath}${item.slug}/` },
+  ]),
+  faqSchema(item.faqs),
+  includeServiceSchema ? serviceSchema(item) : null,
+].filter(Boolean);
+---
+
+<BaseLayout pageTitle={`${item.title} in ${business.city} ${business.state}`} pageDescription={pageDescription} schemaItems={schemaItems}>
+  <Header />
+  <main>
+    <section class="page-hero detail-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">{item.eyebrow}</p>
+          <h1>{item.title}</h1>
+          <p class="hero-description">{item.summary}</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Schedule Service</a>
+            <a class="cta-button is-secondary" href={`tel:${business.phone}`}>Call {business.phone}</a>
+          </div>
+          <ul class="tag-list">
+            {item.highlights.map((highlight) => <li>{highlight}</li>)}
+          </ul>
+        </div>
+        <div class="content-card detail-media-card">
+          <img src={item.heroImage ?? "/images/auto/hero-shop.png"} alt={item.heroAlt ?? `${item.title} at ${business.name}`} />
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell detail-stack">
+        {item.sections.map((section) => (
+          <article class="content-card">
+            <h2>{section.title}</h2>
+            {section.body.map((paragraph) => <p>{paragraph}</p>)}
+            {section.bullets && (
+              <ul class="check-list">
+                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="content-section alt-surface">
+      <div class="shell">
+        <div class="section-header">
+          <p class="section-eyebrow">Questions</p>
+          <h2>{item.title} FAQ</h2>
+          <p class="section-description">Quick answers before you schedule a visit.</p>
+        </div>
+        <div class="faq-list">
+          {item.faqs.map((faq) => (
+            <article class="content-card faq-card">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="shell">
+        <div class="cta-panel">
+          <p class="section-eyebrow">Next Step</p>
+          <h2>{item.ctaTitle}</h2>
+          <p>{item.ctaBody}</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Request Appointment</a>
+            <a class="cta-button is-secondary" href="/contact/">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

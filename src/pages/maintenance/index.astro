@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/navigation/Header.astro";
+import Footer from "../../components/footer/Footer.astro";
+import { maintenance, breadcrumbSchema } from "../../data/automotive";
+---
+
+<BaseLayout pageTitle="Vehicle Maintenance Guides" pageDescription="Automotive maintenance guide pages for oil intervals, brake fluid, transmission service, coolant flushes, and spark plug replacement." schemaItems={[breadcrumbSchema([{ label: "Home", path: "/" }, { label: "Maintenance", path: "/maintenance/" }])]}>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Maintenance</p>
+          <h1>Maintenance Content That Supports Long-Term Ownership</h1>
+          <p class="hero-description">These pages help drivers understand service intervals while creating a scalable content hub for local search.</p>
+        </div>
+        <div class="content-card">
+          <h2>Built for Expansion</h2>
+          <p>Add model-specific intervals, fleet maintenance pages, seasonal service guides, and reminder workflows without changing page templates.</p>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell">
+        <div class="card-grid">
+          {maintenance.map((item) => (
+            <a class="content-card link-card" href={`/maintenance/${item.slug}/`}>
+              <p class="card-kicker">{item.eyebrow}</p>
+              <h2>{item.title}</h2>
+              <p>{item.summary}</p>
+              <span>Read guide</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

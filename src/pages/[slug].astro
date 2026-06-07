@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/navigation/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import { business } from "../config/business";
+import { breadcrumbSchema, locationPages, serviceSchema, services } from "../data/automotive";
+
+export function getStaticPaths() {
+  return locationPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const page = Astro.props.page;
+const relatedService = services.find((service) => service.slug === page.relatedSlug);
+const schemaItems = [
+  breadcrumbSchema([
+    { label: "Home", path: "/" },
+    { label: page.title, path: `/${page.slug}/` },
+  ]),
+  relatedService ? serviceSchema(relatedService) : null,
+].filter(Boolean);
+---
+
+<BaseLayout pageTitle={page.title} pageDescription={page.summary} schemaItems={schemaItems}>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Florence Local SEO</p>
+          <h1>{page.title}</h1>
+          <p class="hero-description">{page.summary}</p>
+          <div class="hero-actions">
+            <a class="cta-button" href="/schedule-service/">Schedule Service</a>
+            <a class="cta-button is-secondary" href={`tel:${business.phone}`}>Call {business.phone}</a>
+          </div>
+        </div>
+        <div class="content-card">
+          <h2>Serving {business.city} Drivers</h2>
+          <p>{business.name} helps local families, commuters, and small business fleets with practical repair decisions and clear communication.</p>
+          <p><strong>Service Area:</strong> {business.serviceAreas.join(", ")}</p>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell split-layout">
+        <article class="content-card">
+          <h2>Why Local Drivers Choose Us</h2>
+          <p>Local SEO pages should be more than doorway pages. This template gives each page enough structure to support unique copy, testimonials, nearby service areas, FAQs, photos, and service-specific calls to action as a real client site grows.</p>
+          <ul class="check-list">
+            <li>Diagnostic-first repair process</li>
+            <li>Transparent estimates before work begins</li>
+            <li>Maintenance planning for Carolina driving conditions</li>
+            <li>Dedicated conversion paths for calls and appointment requests</li>
+          </ul>
+        </article>
+        <article class="cta-panel">
+          <p class="section-eyebrow">Book Local Service</p>
+          <h2>{page.serviceName} in Florence</h2>
+          <p>Tell us what your vehicle needs and the shop will follow up to confirm timing.</p>
+          <a class="cta-button" href="/schedule-service/">Request Appointment</a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

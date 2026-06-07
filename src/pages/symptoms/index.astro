@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/navigation/Header.astro";
+import Footer from "../../components/footer/Footer.astro";
+import { symptoms, breadcrumbSchema } from "../../data/automotive";
+---
+
+<BaseLayout pageTitle="Vehicle Symptoms" pageDescription="Educational automotive symptom pages for check engine lights, no-starts, grinding brakes, shaking, overheating, oil leaks, and battery drain." schemaItems={[breadcrumbSchema([{ label: "Home", path: "/" }, { label: "Symptoms", path: "/symptoms/" }])]}>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="shell page-hero-shell">
+        <div class="page-hero-copy">
+          <p class="section-eyebrow">Symptoms</p>
+          <h1>Find the Problem by What Your Vehicle Is Doing</h1>
+          <p class="hero-description">Symptom pages bring in search traffic by answering real driver questions before guiding visitors toward diagnostics.</p>
+        </div>
+        <div class="content-card">
+          <h2>Helpful, Not Alarmist</h2>
+          <p>Each page explains likely causes, warning signs, and the next best step without pretending a symptom can be diagnosed online.</p>
+        </div>
+      </div>
+    </section>
+    <section class="content-section">
+      <div class="shell">
+        <div class="card-grid">
+          {symptoms.map((symptom) => (
+            <a class="content-card link-card" href={`/symptoms/${symptom.slug}/`}>
+              <p class="card-kicker">{symptom.eyebrow}</p>
+              <h2>{symptom.title}</h2>
+              <p>{symptom.summary}</p>
+              <span>Read guide</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
